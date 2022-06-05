@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LinkAce Launcher
 // @namespace    https://marvinscham.de
-// @version      0.2
+// @version      0.3
 // @description  Creates a keyboard shortcut to add links to my instance of LinkAce
 // @author       marvinscham
 // @match        *://*/*
@@ -14,10 +14,11 @@ let keysPressed = {};
 
 document.addEventListener('keydown', (event) => {
     keysPressed[event.key] = true;
-});
-
-document.addEventListener('keyup', (event) => {
-    delete this.keysPressed[event.key];
+    setTimeout(
+        function() {
+            keysPressed[event.key] = false;
+        }, 500
+    );
 });
 
 window.addEventListener("load", function () {
@@ -29,4 +30,4 @@ window.addEventListener("load", function () {
             window.open('https://bookmarks.xn--schmkerei-37a.de/bookmarklet/add?u=' + encodeURIComponent(url) + '&t=' + encodeURIComponent(title) + '&d=' + encodeURIComponent(description), '_blank', 'menubar=no,height=720,width=600,toolbar=no,scrollbars=yes,status=no,dialog=1');
         }
     });
-})();
+});
